@@ -1,0 +1,21 @@
+version : '3'
+services:
+#  -- 服务名称，其他服务调用的时候就用这个名称
+  mysql:
+    image: docker.io/mysql:latest
+#    volumes:
+#           - ./src/main/docker/mysql/my.cnf:/etc/mysql/my.cnf mysql
+    environment:
+       - MYSQL_ROOT_PASSWORD=123456
+    ports:
+       - "3306:3306"
+    expose:
+       - "3306"
+
+  congenial:
+    image: congenial-spork/congenial-spork:latest
+    ports:
+      - "8080:8080"
+    links:
+#        -- 连接的服务，这里连接到了mysql1
+        - mysql
